@@ -70,7 +70,7 @@ CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
 # Build the Docker Image from the instructions given in the Dockerfile 
 
 ```
-docker build -t packaged-model-001
+docker build -t packaged-model-001 .
 ```
 
 # Build the container out of the image 
