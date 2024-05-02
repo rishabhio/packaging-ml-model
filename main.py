@@ -52,7 +52,7 @@ async def html():
     <body>
     <h1>This is HTML response</h1>
     <img src="https://placehold.co/600x400" /> 
-    <h1> Version 10 </h1> 
+    <h1> Version 100 </h1> 
     </body>
     </html>
     """
