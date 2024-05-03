@@ -35,7 +35,7 @@ jobs:
           registryPassword: ${{ secrets.PACKAGEDMODEL003_REGISTRY_PASSWORD }}
           containerAppName: packaged-model-003
           resourceGroup: JIO-CICD
-          imageToBuild: hub.docker.com/riio/packaged-model-001:${{ github.sha }}
+          imageToBuild: hub.docker.com/riio/packaged-model-001:latest
           
             
 
