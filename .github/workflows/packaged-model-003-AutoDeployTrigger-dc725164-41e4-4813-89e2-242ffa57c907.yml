@@ -1,0 +1,47 @@
+name: Trigger auto deployment for packaged-model-003
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ main ]
+    paths:
+    - '**'
+    - '.github/workflows/packaged-model-003-AutoDeployTrigger-dc725164-41e4-4813-89e2-242ffa57c907.yml'
+
+  # Allow manual trigger 
+  workflow_dispatch:      
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions: 
+      id-token: write #This is required for requesting the OIDC JWT Token
+      contents: read #Required when GH token is used to authenticate with private repo
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.PACKAGEDMODEL003_AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.PACKAGEDMODEL003_AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.PACKAGEDMODEL003_AZURE_SUBSCRIPTION_ID }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          appSourcePath: ${{ github.workspace }} 
+          registryUrl: index.docker.io/v1
+          registryUsername: ${{ secrets.PACKAGEDMODEL003_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.PACKAGEDMODEL003_REGISTRY_PASSWORD }}
+          containerAppName: packaged-model-003
+          resourceGroup: JIO-CICD
+          imageToBuild: index.docker.io/v1/packaged-model-003:${{ github.sha }}
+          _buildArgumentsKey_: |
+            _buildArgumentsValues_
+
+
