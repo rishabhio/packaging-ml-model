@@ -185,3 +185,9 @@ docker pull riio/packaged-model-001:latest
 docker run -p 8000:80 riio/packaged-model-001:latest
 ```
 
+
+
+# Link to access the Container: 
+
+
+- https://model-deployment-005.purplecliff-0cc0d310.centralindia.azurecontainerapps.io/predict
